@@ -48,7 +48,17 @@ const License = ({
               type="text"
               placeholder={error ? '' : '면허 번호를 입력하세요'}
               value={licenseNumber}
-              onChange={(e) => setLicenseNumber(e.target.value)}
+              onChange={(e) => {
+                setError(null);
+                const val = e.target.value;
+                setLicenseNumber(val);
+                
+                if (checkValidation(val)) {
+                  setIsValid(true);
+                } else {
+                  setIsValid(false);
+                }
+              }}
             />
 
             {error && <p className='absolute top-full text-red-400 text-sm'>{error}</p>}
