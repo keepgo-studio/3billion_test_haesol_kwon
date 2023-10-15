@@ -4,6 +4,58 @@ import { LiaAngleLeftSolid, LiaAngleRightSolid } from "react-icons/lia";
 import { BsFillEyeFill } from "react-icons/bs";
 
 
+export const checkFormatValidation = (pw: string) => {
+  const validRegex = new RegExp(/^[A-Za-z0-9!/@#$%^&*()_+{}[\]:;<>,.?~\\-]{8,16}$/);
+
+  return pw && Boolean(validRegex.test(pw));
+}
+
+export const checkPasswordValidation = (pw1:string, pw2: string) => {
+  return pw1 === pw2;
+}
+
+
+function usePasswordInput(initVal = '') {
+  const [password, setPassword] = useState(initVal);
+  const [visible, setVisible] = useState(false);
+  const [error, setError] = useState<string | null>('init');
+
+  const toggleVisibility = () => {
+    setVisible((prevVisible) => !prevVisible);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, compare?: string) => {
+    const newPassword = e.target.value;
+    
+    setPassword(newPassword);
+    
+    if (compare && !checkPasswordValidation(newPassword, compare)) {
+      setError("비밀번호가 일치하지 않습니다.");
+    }
+    else if (!checkFormatValidation(newPassword)) {
+      setError("8 ~ 16자 영문, 숫자, 특수문자를 입력하세요.");
+    } else {
+      setError(null);
+    }
+  };
+
+  const isWrongPassword = () => {
+    return error && error !== 'init';
+  }
+
+  return {
+    password,
+    setPassword,
+    visible,
+    setVisible,
+    error,
+    setError,
+    toggleVisibility,
+    handleChange,
+    isWrongPassword
+  };
+}
+
 const Password = ({
   password,
   onBack,
@@ -13,40 +65,15 @@ const Password = ({
   onBack: () => void;
   onDone: (password: string) => void;
 }) => {
-  const [passwordOne, setPasswordOne] = useState('');
-  const [passwordTwo, setPasswordTwo] = useState(password ?? '');
-  const [visibleOne, setVisibleOne] = useState(false);
-  const [visibleTwo, setVisibleTwo] = useState(false);
-  const [errorOne, setErrorOne] = useState<string | null>(null);
-  const [errorTwo, setErrorTwo] = useState<string | null>(null);
-  
-  const [isValid, setIsValid] = useState(false);
-
-  const checkValidationOne = (pw: string) => {
-    const validRegex = new RegExp(/^[A-Za-z0-9!/@#$%^&*()_+{}[\]:;<>,.?~\\-]{8,16}$/);
-
-    if (validRegex.test(pw)) {
-      return true;
-    }
-
-    return false;
-  }
-
-  const checkValidationTwo = (pw: string) => {
-    if (pw === passwordOne) {
-      return true;
-    }
-
-    return false;
-  }
+  const pwOne = usePasswordInput('');
+  const pwTwo = usePasswordInput('');
 
   useEffect(() => {
-    setPasswordOne(password ?? '');
-    setPasswordTwo(password ?? '');
-
-    if (checkValidationOne(password ?? '')) {
-      setIsValid(true);
+    if (password) {
+      pwOne.setPassword(password);
+      pwTwo.setPassword(password);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [password])
   
 
@@ -64,35 +91,27 @@ const Password = ({
                 className={`
                 w-full placeholder:font-light focus:placeholder-gray-300 pl-3 pr-12 h-12 rounded-lg shadow-[inset_0_0_0_1px] shadow-gray-300 cursor-pointer 
                 hover:shadow-[0_0_2px_1px] hover:shadow-gray-400 hover:placeholder-gray-500
-                ${errorOne
+                ${pwOne.isWrongPassword()
                     ? "shadow-[inset_0_0_0_2px] shadow-red-400 outline-none text-red-400"
                     : ""
                 }
               `}
-                type={visibleOne ? "text" : "password"}
-                placeholder={errorOne ? "" : "이메일을 입력하세요"}
-                value={passwordOne}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setPasswordOne(val);
-                  if (!checkValidationOne(val)) {
-                    setErrorOne("8 ~ 16자 영문, 숫자, 특수문자를 입력하세요.");
-                  } else {
-                    setErrorOne(null);
-                  }
-                }}
+                type={pwOne.visible ? "text" : "password"}
+                placeholder={pwOne.isWrongPassword() ? "" : "이메일을 입력하세요"}
+                value={pwOne.password}
+                onChange={pwOne.handleChange}
               />
 
               <div 
                 className="absolute cursor-pointer right-0 text-lg text-gray-400 flex-center w-12 h-12"
-                onClick={() => setVisibleOne((prev) => !prev)}
+                onClick={pwOne.toggleVisibility}
               >
                 <BsFillEyeFill />
               </div>
 
-              {errorOne && (
+              {pwOne.isWrongPassword() && (
                 <p className="absolute top-full text-red-400 text-sm">
-                  {errorOne}
+                  {pwOne.error}
                 </p>
               )}
             </section>
@@ -108,36 +127,27 @@ const Password = ({
                 className={`
                 w-full placeholder:font-light focus:placeholder-gray-300 px-3 h-12 rounded-lg shadow-[inset_0_0_0_1px] shadow-gray-300 cursor-pointer 
                 hover:shadow-[0_0_2px_1px] hover:shadow-gray-400 hover:placeholder-gray-500
-                ${errorTwo
+                ${pwTwo.isWrongPassword()
                     ? "shadow-[inset_0_0_0_2px] shadow-red-400 outline-none text-red-400"
                     : ""
                 }
               `}
-                type={visibleTwo ? "text" : "password"}
-                placeholder={errorTwo ? "" : "이메일을 입력하세요"}
-                value={passwordTwo}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setPasswordTwo(val);
-                  if (!checkValidationTwo(val)) {
-                    setErrorTwo("비밀번호가 일치하지 않습니다.");
-                  } else {
-                    setIsValid(true);
-                    setErrorTwo(null);
-                  }
-                }}
+                type={pwTwo.visible ? "text" : "password"}
+                placeholder={pwTwo.isWrongPassword() ? "" : "이메일을 입력하세요"}
+                value={pwTwo.password}
+                onChange={(e) => pwTwo.handleChange(e, pwOne.password)}
               />
 
               <div 
                 className="absolute cursor-pointer right-0 text-lg text-gray-400 flex-center w-12 h-12"
-                onClick={() => setVisibleTwo((prev) => !prev)}
+                onClick={pwTwo.toggleVisibility}
               >
                 <BsFillEyeFill />
               </div>
 
-              {errorTwo && (
+              {pwTwo.isWrongPassword() && (
                 <p className="absolute top-full text-red-400 text-sm">
-                  {errorTwo}
+                  {pwTwo.error}
                 </p>
               )}
             </section>
@@ -152,27 +162,8 @@ const Password = ({
         </Button>
 
         <Button
-          onClick={() => {
-            setIsValid(false);
-
-            if (checkValidationOne(passwordOne)) {
-              setErrorOne(null);
-            } else {
-              setErrorOne("8 ~ 16자 영문, 숫자, 특수문자를 입력하세요.");
-              return;
-            }
-
-            if (checkValidationTwo(passwordTwo)) {
-              setErrorTwo(null);
-            } else {
-              setErrorTwo("비밀번호가 일치하지 않습니다.");
-              return;
-            }
-            
-            setIsValid(true);
-            onDone(passwordOne);
-          }}
-          isDisabled={!isValid}
+          onClick={() => (!pwOne.isWrongPassword() && !pwTwo.isWrongPassword()) && onDone(pwOne.password)}
+          isDisabled={Boolean(pwOne.isWrongPassword() || pwTwo.isWrongPassword())}
         >
           다음 <LiaAngleRightSolid className="inline-block ml-2 text-xl" />
         </Button>

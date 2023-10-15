@@ -36,7 +36,8 @@ const Button = ({
     return (
       <button
         onClick={onClick}
-        className={getThemeStyle()}>
+        className={getThemeStyle()}
+      >
         {children}
       </button>
     );

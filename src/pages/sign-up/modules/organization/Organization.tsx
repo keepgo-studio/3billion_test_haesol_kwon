@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { BiSearch } from 'react-icons/bi';
 import { LiaAngleLeftSolid, LiaAngleRightSolid } from 'react-icons/lia';
 import Button from '../../../../components/Button';
 import { TPosition } from '../../data';
 
+export const checkValidation = (org: string | null) => {
+  return org && org.length > 0;
+}
 
 const Item = ({ children }:{children: React.ReactNode}) => (
   <>{children}</>
@@ -98,15 +101,10 @@ const Organization = ({
   onBack: () => void;
   onDone: (organization: string) => void;
 }) => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState<string>('');
   const [snippetList, setSnippetList] = useState<string[] | null>(null);
   const [openSnippet, setOpenSnippet] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [isValid, setIsValid] = useState(false);
-
-  const checkValidation = (org: string | null) => {
-    return org && org.length > 0;
-  }
 
   useEffect(() => {
     if (position === '의사' || position === '간호사') {
@@ -122,9 +120,16 @@ const Organization = ({
 
     if (checkValidation(organization)) {
       setName(organization!);
-      setIsValid(true);
     }
   }, [position, organization])
+
+  const inputHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.currentTarget.value;
+
+    setError(null);
+    setName(val);
+    setOpenSnippet(val.length > 1 ? true : false);
+  }, [])
 
   return (
     <section className='w-full h-full max-w-screen-sm flex flex-col py-12 px-2 m-auto'>
@@ -149,24 +154,7 @@ const Organization = ({
                 type="text"
                 placeholder={error ? '' : '기관명을 입력하세요'}
                 value={name}
-                onChange={(e) => {
-                  const val = e.currentTarget.value;
-      
-                  setError(null);
-                  setName(val);
-              
-                  if (val.length > 1) {
-                    setOpenSnippet(true);
-                  } else {
-                    setOpenSnippet(false);
-                  }
-
-                  if (checkValidation(val)) {
-                    setIsValid(true);
-                  } else {
-                    setIsValid(false);
-                  }
-                }}
+                onChange={inputHandler}
               />
 
               {error && <p className='absolute top-full text-red-400 text-sm'>{error}</p>}
@@ -177,8 +165,8 @@ const Organization = ({
                   keyword={name}
                   list={snippetList} 
                   onClick={(newName) => {
-                    setName(newName);
                     setOpenSnippet(false);
+                    setName(newName);
                   }}
                 />
               )}
@@ -196,14 +184,14 @@ const Organization = ({
 
         <Button
           onClick={() => {
-            if (isValid) {
+            if (checkValidation(name)) {
               onDone(name);
+              return;
             }
-            else {
-              setError('기관명을 입력하세요.')
-            }
+
+            setError('기관명을 입력하세요.');
           }}
-          isDisabled={!isValid}
+          isDisabled={!checkValidation(name)}
         >다음 <LiaAngleRightSolid className='inline-block ml-2 text-xl' /></Button>
       </div>
     </section>
