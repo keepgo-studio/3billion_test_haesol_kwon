@@ -23,7 +23,7 @@ const Password = ({
   const [isValid, setIsValid] = useState(false);
 
   const checkValidationOne = (pw: string) => {
-    const validRegex = new RegExp(/^[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\-]{8,16}$/);
+    const validRegex = new RegExp(/^[A-Za-z0-9!/@#$%^&*()_+{}[\]:;<>,.?~\\-]{8,16}$/);
 
     if (validRegex.test(pw)) {
       return true;
