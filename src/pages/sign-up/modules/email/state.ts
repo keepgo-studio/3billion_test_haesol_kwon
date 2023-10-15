@@ -17,7 +17,7 @@ type TService = {
   }
 }
 
-/** @xstate-layout N4IgpgJg5mDOIC5RgLYEMCWAbAdBiWYAxAMYAWYJA1gAQBmA9gE7oAuA2gAwC6ioADg1gZWGBgDs+IAB6IATAEYAnDgAsnAGxz1ADh0BmTquP6ANCACe81QHYcSmxoCsNufoVyjc1wF8f51ExcfEJSCmp6ZjZ2BV4kEEFhUQkpWQRFFXUtXQMjE3MrBCd9VRxPdzdVfWclar8A9Gw8AmJWC34wGnEwAHcaQOwuOIEhETFJeLSAWh1OHB0nJR0FGwV9BxsHJwLEEv17B1UFDQ0bfW8FBXrwRtwANzQsfEiWNFYiIalEsZTJxA0jvZNHJivp9DZOEptpZrJlHE5VEpNEpPCdrgNcGAmExmEQ2h0ur1+rdPvFvskJqA0koAWolPTDEjvJwFNDCtUdDhONyWRCAZxqkp0bccGh+BgiBAJGA8OI7gwqDKMaLxQgMHKGCQ3uMhqSRklxqlEEpbPYNDoNPTNsibGz5PonGU5M5VM43YYFKphUEVRKsTimDh+Fg3owWDhlWKMGqNVqKbqeF9RhSjQgTXYaRarUjLbadukdHIcK5nAjHJ6bMZvU0pd08e1Ot0+hi9Qlk4a-mnaYiGZDOMzjvnljgnDz+14XDY9H5-CBxAwIHApBikwbflTEFMPJyFksVmsNlt81NHfT6YsnDVzr5Z8qQmBVz9KTJEAZiwKPFVODYIUcNPmQQUHBzjdHRVFyRYhVvEUHieCAXjYR8U07UcgNOZRNGBEpjAA8C1HhEwljkbxC2rTFsWYJCOw3BBLldIENE9fQdFWWpLgAzYcA0FkETo1ZtC9aCfSjKj1xfBAzg0A56Q0dYLU2dwAO0ewCMvS91hRJwyJwWsHzJdsxLSOipJzJiWOUdwFHzS4i1mJYlBWYpuQWQS-CAA */
+/** @xstate-layout N4IgpgJg5mDOIC5RgLYEMCWAbAdBiWYAxAMYAWYJA1gAQBmA9gE7oAuA2gAwC6ioADg1gZWGBgDs+IAB6IATAEYAnDgAsnAGxz1ADh0BmTquP6ANCACe81QHYcSmxoCsNufoVyjc1wF8f51ExcfEJSCmp6ZjZ2BV4kEEFhUQkpWQRFFXUtXQMjE3MrBCd9VRxPdzdVfWclar8A9Gw8AmJWC34wGnEwAHcaQOwuOIEhETFJeLSAWgVOHRxOJTkNDSVNVWUS1QL5HU4cfRtVJQ1jmyWFHWd68EbcADc0LHxIljRWIiGpRLGUycRTgp7Jo5MV9IdFk4duljmpHE5jpolpoNDcBrgwEwmMwiG0Ol1ev07l94j9khNQNNZvNFst9HtbAYdKDofolPNVKtPDZijY+Zc0XccGh+BgiBAJGA8OJ7gwqFL0cLRQgMDKGCR3uMhiSRklxqlEEpbPYNFclA41qsedC3E4yssEc4nYYFKpBUElWLMdimDh+Fh3owWDhFSKMCq1RrydqeN9RuSDQgjXYTmaLUjrZZdnIcK5nAjHK6jm7-LcPRLurj2p1un10TqEvH9f8EDM5gslhp6UYbEzXdDXfocAYFAobFsnAinDo-KXxAwIHApOi43q-pTEDMnBoO8tVutNsYbXbDOzzlpOAonMpUaXFSEwKvfhSZIgDLnOBUqpw+UYFBpjyBfQHVNVRcicc13SaR5nggV42CfBMWycS8cA0GxlE0EEtm2LMYQ5eETHZORvGZKCMSxZhEObDcEFHTlgQ0QcdAw2pRxtc40MvBF6Iw7QSwaD0w2o9dXwQccd3Nc0u3ZdC2JtbR7EI7dtzZJYnHInAK0fUkm1EtJ6MkzRmNY9wFAHDxh0WHQlDHYpODmBFZx8IA */
 export const EmailMachine = createMachine({
   id: 'email',
 
@@ -82,7 +82,7 @@ export const EmailMachine = createMachine({
         }
       },
 
-      entry: "assig valid"
+      entry: "assign valid"
     }
   },
 
@@ -91,7 +91,7 @@ export const EmailMachine = createMachine({
   actions: {
     "assign email": assign({
       email: (_, event) => event.email,
-      valid: false
+      valid: false,
     }),
     "assign error": assign({
       errorMsg: (_, event) => {
@@ -107,7 +107,7 @@ export const EmailMachine = createMachine({
         return "오류; 다른 이메일을 입력해 주세요.";
       }
     }),
-    "assig valid": assign({
+    "assign valid": assign({
       valid: true
     })
   },

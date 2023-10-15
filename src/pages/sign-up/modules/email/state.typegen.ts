@@ -19,9 +19,9 @@
           services: never;
         };
         eventsCausingActions: {
-          "assig valid": "done.invoke.email.api:invocation[0]";
-"assign email": "type new email";
+          "assign email": "type new email";
 "assign error": "check format" | "error.platform.email.api:invocation[0]";
+"assign valid": "done.invoke.email.api:invocation[0]";
         };
         eventsCausingDelays: {
           
