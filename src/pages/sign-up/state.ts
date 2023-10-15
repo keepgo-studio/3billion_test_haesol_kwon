@@ -110,16 +110,26 @@ export const SignUpMachine = createMachine({
 }, {
   actions: {
     "assign position": assign({
-      position: (_, e) => e.value
+      position: (_, e) => e.value,
+      organization: null,
+      license: null,
+      email: null,
+      password: null
     }),
     "assign organization": assign({
-      organization: (_, e) => e.value
+      organization: (_, e) => e.value,
+      license: null,
+      email: null,
+      password: null
     }),
     "assign license": assign({
-      license: (_, e) => e.value
+      license: (_, e) => e.value,
+      email: null,
+      password: null
     }),
     "assign email": assign({
-      email: (_, e) => e.value
+      email: (_, e) => e.value,
+      password: null
     }),
     "assign password": assign({
       password: (_, e) => e.value
