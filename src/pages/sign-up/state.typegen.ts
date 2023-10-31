@@ -31,7 +31,7 @@
         eventsCausingServices: {
           
         };
-        matchesStates: "done" | "면허 번호" | "비밀번호" | "소속 기관" | "이메일" | "직무";
+        matchesStates: "done" | "닉네임" | "면허 번호" | "비밀번호" | "소속 기관" | "이메일" | "직무";
         tags: never;
       }
   

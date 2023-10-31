@@ -6,6 +6,7 @@ import Organization from "./modules/organization/Organization";
 import License from "./modules/license/License";
 import Email from "./modules/email/Email";
 import Password from "./modules/password/Password";
+import Nickname from "./modules/nickname/Nickname";
 
 const Navbar = () => {
   return (
@@ -83,6 +84,20 @@ const SignUp = () => {
           }
         />
       );
+    } 
+    else if (current.matches("닉네임")) {
+      return (
+        <Nickname 
+          nickname={current.context.nickname}
+          onBack={() => send("back")}
+          onDone={(name) =>
+            send({
+              type: "닉네임 입력하기",
+              value: name,
+            })
+          }
+        />
+      )
     } else if (current.matches("done")) {
       return (
         <section className="flex-center h-full w-full">

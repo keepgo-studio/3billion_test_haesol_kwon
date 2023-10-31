@@ -8,6 +8,7 @@ interface  ISignUpContext {
   license: string | null;
   email: string | null;
   password: string | null;
+  nickname: string | null;
 };
 
 type TSignUpEvents =
@@ -16,10 +17,11 @@ type TSignUpEvents =
 | { type: "면허 번호 입력하기", value: string }
 | { type: "이메일 입력하기", value: string }
 | { type: "비밀번호 입력하기", value: string }
+| { type: "닉네임 입력하기", value: string }
 | { type: "back" }
 ;
 
-/** @xstate-layout N4IgpgJg5mDOIC5SwJZQHYAICuAHAdIIOTgLN0DEJmgBIOC7C4BqrgDHUDaADALqKi4D2qALil3QcQAD0QBGAEwBWfAE4FC6eIAs0gGwAOAOwBmcQBoQAT0Q7549eunSVunSpWTxAXxdHUGHAUAxg4FjBzHpAAFrSf0CgzEBQ8cBSDoYWdiQQbj4BIUSxBBVmSXlpfXENTV1tSV0VbSNTBE1xfBVFOX0ilXUWyTcPNCw8fDDg0IDgqNimcQTOHhR+QWEMrJy5PPECrWLS8srESUkVeW1rG2l9q3VGjpBPbt9BkIAjAEMAYwBreOFkqdTZiXVmfGl1pJ9nltJp6psEABacTafDMTTMZZSXS6RoA8S6c6Xbz4QAuXYAJ1cwgAiewAca6QCcSScM4mx3pNpmlQBkEX91NpxDptNIFL9thCanUGk0yq1rFiujiKaTSA8Xm9Eh8Gd9MnJYZpubotJoEdonCoIdDYfDEctSqjdOjMe4LhKeoAXccAKl2AH3HSI6ndSmLSFfSvukJMw2fh1Y0eaV1pp+Zp8LqFDVdJI5Kc5EDxV57c6ZU9Xl6JikZn6EKDdoiNCWEbZVQaYXCEUizWjnFbOmmCG7M3KxnS84zRIhQbU9HY5OI5I5mLrJFXmH9tHJEcxGuP1Yj2tbsT1ACJ9gAAe6Xb0ke+W5z75pkSFG1eNx9SoxZaSPR+pyOMJpMpte2gh7smy7PjJI+k9ewQcQF1haRp2yGEQI0FEqyNWtTRRBsMTca10C4CA4GEddcC7Y8ewySF1CrbV8ATFduUcLUuVTK4iGIPClQLJwISRfBVHjeE9E0VUX1onE+iCRjfVPBAE10fBLyRdQzTsIpWOWdi7FKECrBA7QaPfFs8UJUlhMAjJTlqZgWh0C1UW2IFWJM6NJGsLUQM0SQak0fj0ydfSCMQVVdmTDlVQDGSR0MEwJEU1VrFnZyVBHfZtDcz8dxJTzlSkGQ6mcHiAQ1AEI1C4DwuBEUE2TWdXK0uiIEEMAUoLAp4XwNl-ITXVUS5BSZzsgFjmyRpNLcIA */
+/** @xstate-layout N4IgpgJg5mDOIC5SwJZQHYAICuAHAdIIOTgLN0DEJmgBIOC7C4BqrgDHUDaADALqKi4D2qALil3QcQAD0QBGAEwBWfAE4FC6eIAs0gGwAOAOwBmcQBoQAT0Q7549eunSVunSpWTxAXxdHUGHAUAxg4FjBzHpAAFrSf0CgzEBQ8cBSDoYWdiQQbj4BIUSxBBVmSXlpfXENTV1tSV0VbSNTBE1xfBVFOX0ilXUWyTcPNCw8fDDg0IDgqNimcQTOHhR+QWEMrJy5PPECrWLS8srESUkVeW1rG2l9q3VGjpBPbt9BkIAjAEMAYwBreOFkqdTZiXVmfGl1pJ9nltJp6psEABacTafDMTTMZZSXS6RoA8S6c6Xbz4QAuXYAJ1cwgAiewAca6QCcSScM4mx3pNpmlQBkEX91NpxDptNIFL9thCanUGk0yq1rFiujiKaTSA8Xm9Eh8Gd9MnJYZpubotJoEdonCoIdDYfDEctSqjdOjMe4LhKeoAXccAKl2AH3HSI6ndSmLSFfSvukJMw2fh1Y0eaV1pp+Zp8LqFDVdJI5Kc5EDxV57c6ZU9Xl6JikZn6EKDdoiNCWEbZVQaYXCEUizWjnFbOmmCG7M3KxnS84zRIhQbU9HY5OI5I5mLrJFXmH9tHJEcxGuP1Yj2tbsT1ACJ9gAAe6Xb0ke+W5z75pkSFG1eNx9SoxZaSPR+pyOMJpMpte2gh7smy7PjJI+k9ewQcQF1haRp2yGEQI0FEqyNWtTRRBsMVTK58EASabABJGwAQ8dILDsIPHN-27ZVLEcfAtFHZYbEkZddAhZZdHwbZrG0fYFEkVj1FQnF8PbX8u2PHsMgxIogz0bRslVDRynokxEGhXZnGTOxtTUziVDca10C4CA4GEddcEEpUC0hdQq21Zi50YrJ53qbj3xbIhiGM31T0ySd5OA5Z8FUeN4T0TRVRfHiej6IJXMAjIEyYy8kXUM1VLkqokV8uxShAqwQLY6RQoIKUSUi4TEFOWpmBaHQLVRbYgQY8ro04woanhWiOTy-A3SK5VVV2ZMOVVAMEpHQwvNS1VWOTMER32bR2q-LqCykGQ6mcIKAQ1AEI1GnzxryNoONnTR2ogQQwAW9yORA+QEs0a9r0aOwRpSq6SlYlEjgtGL2vw86gIKcpo2UJ9Bq5bUKm22pdqKSDyjIrSXCAA */
 export const SignUpMachine = createMachine({
   id: "sign up",
 
@@ -38,6 +40,7 @@ export const SignUpMachine = createMachine({
     organization: null,
     email: null,
     password: null,
+    nickname: null
   },
 
   states: {
@@ -93,7 +96,7 @@ export const SignUpMachine = createMachine({
     "비밀번호": {
       on: {
         "비밀번호 입력하기": {
-          target: "done",
+          target: "닉네임",
           actions: "assign password"
         },
 
@@ -103,6 +106,13 @@ export const SignUpMachine = createMachine({
 
     done: {
       type: "final"
+    },
+
+    "닉네임": {
+      on: {
+        "닉네임 입력하기": "done",
+        back: "비밀번호"
+      }
     }
   },
 
