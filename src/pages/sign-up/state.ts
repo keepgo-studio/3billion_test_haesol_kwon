@@ -19,7 +19,7 @@ type TSignUpEvents =
 | { type: "back" }
 ;
 
-/** @xstate-layout N4IgpgJg5mDOIC5SwJZQHYAICuAHAdIIOTgLN0DEJmgBIOC7C4BqrgDHUDaADALqKi4D2qALil3QcQAD0QBGAEwBWfAE4FC6eIAs0gGwAOAOwBmcQBoQAT0Q7549eunSVunSpWTxAXxdHUGHAUAxg4FjBzHpAAFrSf0CgzEBQ8cBSDoYWdiQQbj4BIUSxBBVmSXlpfXENTV1tSV0VbSNTBE1xfBVFOX0ilXUWyTcPNCw8fDDg0IDgqNimcQTOHhR+QWEMrJy5PPECrWLS8srESUkVeW1rG2l9q3VGjpBPbt9BkIAjAEMAYwBreOFkqdTZiXVmfGl1pJ9nltJp6psEABacTafDMTTMZZSXS6RoA8S6c6Xbz4QAuXYAJ1cwgAiewAca6QCcSScM4mx3pNpmlQBkEX91NpxDptNIFL9thCanUGk0yq1rFiujiKaTSA8Xm9Eh8Gd9MnJYZpubotJoEdonCoIdDYfDEctSqjdOjMe4LhKeoAXccAKl2AH3HSI6ndSmLSFfSvukJMw2fh1Y0eaV1pp+Zp8LqFDVdJI5Kc5EDxV57c6ZU9Xl6JikZn6EKDdoiNCWEbZVQaYXCEUizWjnFbOmmCG7M3KxnS84zRIhQbU9HY5OI5I5mLrJFXmH9tHJEcxGuP1Yj2tbsT1ACJ9gAAe6Xb0ke+W5z75pkSFG1eNx9SoxZaSPR+pyOMJpMpte2gh7smy7PjJI+k9ewQcQF1haRp2yGEQI0FEqyNWtTRRBsMTca10C4CA4GEddcC7Y8ewySF1CrbV8ATFduUcLUuVTK4iGIPClQLJwISRfBVHjeE9E0VUX1onE+iCRjfVPBAE10fBLyRdQzTsIpWOWdi7FKECrBA7QaPfFs8UJUlhMAjJTlqZgWh0C1UW2IFWJM6NJGsLUQM0SQak0fj0ydfSCMQVVdmTDlVQDGSR0MEwJEU1VrFnZyVBHfZtDcz8dxJTzlSkGQ6mcHiAQ1AEI1C4DwuBEUE2TWdXK0uiIEEMAUoLAp4XwNl-ITXVUS5BSZzsgFjmyRpNLcIA */
+/** @xstate-layout N4IgpgJg5mDOIC5SwJZQHYAICuAHAdIIOTgLN0DEJmgBIOC7C4BqrgDHUDaADALqKi4D2qALil3QcQAD0QBaAIwBWAMz5pAJmbMAnABZZADlWTdkgOwAaEAE9EixevyqDANmmPp9u69WyAvh5OoMOAoAxg4Cxg5j0gAC1pMGhYZiAoeOApB0MLOxIINx8AkKpYgjilsw2iloGWlZlKpIm5gjSWlqFWtLMikqysuqKdl4+aFh4+FHhkSHhcYlMkimcPCj8gsI54up2BgqKkswGtbKKqjrqVYgGBpL4klrqzfYGGirq3SC+fQSALl2AE6uYgBE9gBxrpO9f3zGSTYwnSs0yCwkMjsNi0G2YOncdlk0jshwQx1O50uimut2Y928j16-nwgBdxwAqXYAfcdIlKpQKYINSYLmWVAi0kyLOslsOxOagqinRmmsF20WjsllkNyKDyepMAIn2AAB6fqRlT8GclQTNWZCEJIrKteZpVA51O4WuidDD1DIZE1Os1VKo5ST+urfgAjACGAGMANZa5k6iHZRCSHY2JQdJSbLbNIVmRClU6KNrta3qeydV1+fqDCI+gNB6YZeZh-XS2FaaWNAyySQG4xJhDqZwKAwEzstQ1yXPPcnU0hFwNM0vg8vs8MdfCd5iNzZ2Nso+zolow+vKexZ2R2DSEnp514fVUjktpEOT0SIdz4FrqLTMHaGCXMaQHFt2c6FOxxkq2rR+1Jf5Tz9QNJm1Ms2WvBB1g3ZFiglZE2jqYV22cAl1GWa4Ti6B50C4CA4GEeU8EgidoMWaQZDWDYthrXYdGkNd5EsBxLAfX9bSzaQgP6EhyN1CtbRsZ0xPEsSJXRTlTk7CV107Y5ij4wIRjCQTQynfVVDOVQ1B5HZJU3Zp0TkeRlkMHZdHNSU8MPAcQO+DSrxyXYzmKLMNEMB8LPRPdpAUVRqOUd8Iw0XiiVIgg6WcyiLFOR9nBaJQtjaJt0RReR32KbznCCxQVPwD1Yr1GcVBOUoDB8nlOWkiobFcBxjlS-TCogQQwBKisZARfAVnOVRdiqnktmkjZZ06FLXCdaUIq8IA */
 export const SignUpMachine = createMachine({
   id: "sign up",
 
@@ -44,7 +44,7 @@ export const SignUpMachine = createMachine({
     "직무": {
       on: {
         "직무 선택하기": {
-          target: "소속 기관",
+          target: "이메일",
           actions: "assign position"
         },
       },
@@ -57,36 +57,36 @@ export const SignUpMachine = createMachine({
           cond: "면허 있음",
           actions: "assign organization"
         }, {
-          target: "이메일",
+          target: "비밀번호",
           actions: "assign organization"
         }],
 
-        back: "직무"
+        back: "이메일"
       }
     },
 
     "면허 번호": {
       on: {
         "면허 번호 입력하기": {
-          target: "이메일",
+          target: "비밀번호",
           actions: "assign license"
         },
 
-        back: "소속 기관"
+        back: [{
+          target: "소속 기관",
+          cond: "면허 있음"
+        }, "이메일"]
       }
     },
 
     "이메일": {
       on: {
         "이메일 입력하기": {
-          target: "비밀번호",
+          target: "소속 기관",
           actions: "assign email"
         },
 
-        back: [{
-          target: "면허 번호",
-          cond: "면허 있음"
-        }, "소속 기관"]
+        back: "직무"
       }
     },
 
@@ -97,7 +97,7 @@ export const SignUpMachine = createMachine({
           actions: "assign password"
         },
 
-        back: "이메일"
+        back: "면허 번호"
       }
     },
 

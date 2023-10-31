@@ -15,6 +15,16 @@ const Navbar = () => {
   );
 };
 
+/**
+ * 
+ * @description
+ * 
+ * scenario 1
+ * 
+ * 직무 순서가 바뀌는 경우
+ */
+
+
 const SignUp = () => {
   const [current, send] = useMachine(SignUpMachine);
   const renderCurrent = () => {
