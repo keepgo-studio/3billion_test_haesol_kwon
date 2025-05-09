@@ -1,6 +1,6 @@
 # 회원 가입 process mock up
 
-### writer. Haesol Kwon
+<img width=400 src="https://github.com/user-attachments/assets/8e879dda-f740-4838-b412-a32ce2328466">
 
 ## 개요.
 
@@ -23,10 +23,6 @@
 4. 파일 명명 규칙은 보편적인 방식을 따랐으며 파일 구조는 next js에 영감받아 모듈 및 컴포넌트 단위로 폴더를 구성하여 파일들 간 거리를 좁혀놓았습니다
 
 
-
-### 아쉬운 점
-
-+ path alias로 import 문을 깔금하게 만드는 것을 좋아하는데 이번에 적용하지 못 했습니다.
 
 #### etc.
 
