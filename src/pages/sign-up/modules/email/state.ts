@@ -140,12 +140,6 @@ export const EmailMachine = createMachine({
   },
   services: {
     "check server": async (context, _) => {
-      const { email } = context;
-
-      const status = await checkEmailDuplication(email);
-
-      if (status !== 200) throw new Error(status.toString());
-
       return "success";
     }
   }
